@@ -11,7 +11,8 @@
 <hr width="100%" />
 
 <table border="1" >
-    <tr><th>Nom</th><th>Prénom</th><th>Ville</th><th>Pays</th></tr>
+    <tr><th>Nom</th><th>Prénom</th>
+        <%--<th>Ville</th><th>Pays</th></tr>--%>
     <c:forEach var="client" items="${clients}">
         <tr>
             <td> ${client.nom} </td>

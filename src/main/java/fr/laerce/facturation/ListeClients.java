@@ -23,19 +23,14 @@ import java.util.*;
 * */
 public class ListeClients extends HttpServlet {
     Connection conn;
-
     Statement req;
 
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
 
-
         try {
-            //Statement req = conn.createStatement();
-            // mettre la création du statement dans le init(),
-            // puis le déplacer à l'initialisation de l'app
 
-            String query = "SELECT clt_num, clt_nom, clt_pnom, clt_loc, clt_pays FROM clients";
+            String query = "SELECT clt_num, clt_nom, clt_pnom, clt_loc, clt_pays FROM clients;";
             ResultSet res = req.executeQuery(query);
             List<Client> clients = new ArrayList<Client>();
             while(res.next()){
@@ -46,6 +41,7 @@ public class ListeClients extends HttpServlet {
                         res.getString("clt_pays")));
             }
             httpServletRequest.setAttribute("clients", clients);
+
             String laVue = "clients.jsp";
             getServletConfig().getServletContext()
                     .getRequestDispatcher("/WEB-INF/jsp/"+laVue)
@@ -60,6 +56,11 @@ public class ListeClients extends HttpServlet {
     public void init() throws ServletException {
         super.init();
 
+//        ConnexionSGBD configConn = new ConnexionSGBD();
+//
+//        conn = configConn.getConnection();
+//        req = configConn.getReq();
+//
         String nom_driver = getServletContext().getInitParameter("nom_driver");
         String DB_url = getServletContext().getInitParameter("DB_url");
         String DB_name = getServletContext().getInitParameter("DB_name");
