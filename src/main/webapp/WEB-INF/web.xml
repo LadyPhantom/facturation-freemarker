@@ -40,6 +40,22 @@
         </listener-class>
     </listener>
 
+    <!-- Filters -->
+    <filter>
+        <filter-name>SimpleFilter</filter-name>
+        <filter-class>fr.laerce.facturation.TestConnexionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SimpleFilter</filter-name>
+        <!--<url-pattern>/*</url-pattern>-->
+        <servlet-name>ListeClients</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SimpleFilter</filter-name>
+        <!--<url-pattern>/*</url-pattern>-->
+        <servlet-name>DetailClient</servlet-name>
+    </filter-mapping>
+
     <!-- Servlet -->
     <servlet>
         <servlet-name>ListeClients</servlet-name>
@@ -50,6 +66,18 @@
         <servlet-name>DetailClient</servlet-name>
         <servlet-class>fr.laerce.facturation.model.DetailClient</servlet-class>
     </servlet>
+
+    <!--<servlet>-->
+        <!--<servlet-name>Erreur</servlet-name>-->
+        <!--<servlet-class>fr.laerce.facturation.model.DetailClient</servlet-class>-->
+    <!--</servlet>-->
+
+
+    <!-- Servlet Mapping -->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Erreur</servlet-name>-->
+        <!--<url-pattern>/ErreurConnexion.jsp</url-pattern>-->
+    <!--</servlet-mapping>-->
 
     <servlet-mapping>
         <servlet-name>ListeClients</servlet-name>
