@@ -6,12 +6,21 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Détail client</title>
+    <title>Détails client</title>
 </head>
 <body>
-<h1>Détail client</h1>
+<h1>Détails client</h1>
+
+    <ul>
+        <li>${client.nom}</li>
+        <li> ${client.pnom} </li>
+        <li> ${client.loc} </li>
+        <li> ${client.pays} </li>
+    </ul>
 
 </body>
 </html>

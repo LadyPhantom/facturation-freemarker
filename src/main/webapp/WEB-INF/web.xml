@@ -2,9 +2,12 @@
         "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
         "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
+
 <web-app>
+
     <display-name>Exemple d'Application Web</display-name>
 
+    <!-- Paramètres du contexte-->
     <context-param>
         <param-name>nom_driver</param-name>
         <param-value>org.postgresql.Driver</param-value>
@@ -14,30 +17,48 @@
         <param-name>DB_url</param-name>
         <param-value>jdbc:postgresql://192.168.99.100/</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>DB_name</param-name>
         <param-value>exemple</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>id_user</param-name>
         <param-value>postgres</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>psw_user</param-name>
         <param-value>secret</param-value>
     </context-param>
-    
+
+    <!-- Listener -->
+    <listener>
+        <listener-class>
+            fr.laerce.facturation.ContextListener
+        </listener-class>
+    </listener>
+
+    <!-- Servlet -->
     <servlet>
         <servlet-name>ListeClients</servlet-name>
         <servlet-class>fr.laerce.facturation.ListeClients</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>DetailClient</servlet-name>
+        <servlet-class>fr.laerce.facturation.model.DetailClient</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>ListeClients</servlet-name>
         <url-pattern>/clients.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DetailClient</servlet-name>
+        <url-pattern>/detail.html</url-pattern>
     </servlet-mapping>
 
 </web-app>
