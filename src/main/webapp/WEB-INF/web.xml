@@ -35,26 +35,24 @@
 
     <!-- Listener -->
     <listener>
-        <listener-class>
-            fr.laerce.facturation.ContextListener
-        </listener-class>
+        <listener-class>fr.laerce.facturation.ContextListener</listener-class>
     </listener>
 
     <!-- Filters -->
-    <filter>
-        <filter-name>SimpleFilter</filter-name>
-        <filter-class>fr.laerce.facturation.TestConnexionFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>SimpleFilter</filter-name>
-        <!--<url-pattern>/*</url-pattern>-->
-        <servlet-name>ListeClients</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>SimpleFilter</filter-name>
-        <!--<url-pattern>/*</url-pattern>-->
-        <servlet-name>DetailClient</servlet-name>
-    </filter-mapping>
+    <!--<filter>-->
+        <!--<filter-name>SimpleFilter</filter-name>-->
+        <!--<filter-class>fr.laerce.facturation.TestConnexionFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>SimpleFilter</filter-name>-->
+        <!--&lt;!&ndash;<url-pattern>/*</url-pattern>&ndash;&gt;-->
+        <!--<servlet-name>ListeClients</servlet-name>-->
+    <!--</filter-mapping>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>SimpleFilter</filter-name>-->
+        <!--&lt;!&ndash;<url-pattern>/*</url-pattern>&ndash;&gt;-->
+        <!--<servlet-name>DetailClient</servlet-name>-->
+    <!--</filter-mapping>-->
 
     <!-- Servlet -->
     <servlet>
@@ -87,6 +85,7 @@
     <servlet-mapping>
         <servlet-name>DetailClient</servlet-name>
         <url-pattern>/detail.html</url-pattern>
+
     </servlet-mapping>
 
 </web-app>

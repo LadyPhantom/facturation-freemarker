@@ -6,14 +6,14 @@
     <title>Clients</title>
 </head>
 <body>
-<h1>Clients</h1>
+<h1>Clients(JSP)</h1>
 <p />
 <hr width="100%" />
 
 <table border="1" >
     <tr><th>Nom, prénom</th>
-        <%--<th>Prénom</th>--%>
-        <%--<th>Ville</th><th>Pays</th></tr>--%>
+        <th>Prénom</th>
+        <th>Ville</th><th>Pays</th></tr>
     <c:forEach var="client" items="${clients}">
         <tr>
             <td>
@@ -23,6 +23,7 @@
             </td>
         </tr>
     </c:forEach>
+
 </table>
 
 </body>

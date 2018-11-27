@@ -1,36 +1,31 @@
 package fr.laerce.facturation.model;
 
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.rmi.server.ExportException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DetailClient extends HttpServlet {
+    Template detailsClient;
 
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException{
-//        Connection conn;
-//        Statement req;
-        Client client = null;
 
-        String pnom = httpServletRequest.getParameter("prenom");
-        System.out.println(pnom);
+        String id = httpServletRequest.getParameter("id");
 
         try {
-//            conn = (Connection) getServletContext().getAttribute("connexion");
-//            req = (Statement) getServletContext().getAttribute("statement");
-
-//            String query = "SELECT clt_num, clt_nom, clt_pnom, clt_loc, clt_pays FROM clients WHERE clt_pnom='" + pnom + "';";
-//            ResultSet res = req.executeQuery(query);
-
             PreparedStatement prep = (PreparedStatement) getServletContext().getAttribute("PS_detail");
-            prep.setString(1, pnom);
+            prep.setString(1, id);
             ResultSet res = prep.executeQuery();
 
+            Client client = null;
             while(res.next()){
                 client = new Client(res.getString("clt_num"),
                         res.getString("clt_nom"),
@@ -39,17 +34,31 @@ public class DetailClient extends HttpServlet {
                         res.getString("clt_pays"));
 
             }
-            httpServletRequest.setAttribute("client", client);
-            String laVue = "detail.jsp";
-            getServletConfig().getServletContext()
-                    .getRequestDispatcher("/WEB-INF/jsp/"+laVue)
-                    .forward(httpServletRequest, httpServletResponse);
+
+            Map<String,Object> datas = new HashMap<>();
+            datas.put("client", client);
+
+            detailsClient.process(datas, httpServletResponse.getWriter());
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (TemplateException e){
             e.printStackTrace();
         }
+    }
 
+    @Override
+    public void init() throws ServletException {
+        super.init();
+
+//        Configuration cfg = new Configuration(Configuration.VERSION_2_3_25);
+//        cfg.setServletContextForTemplateLoading(getServletContext(),"/WEB-INF/templates");
+//        cfg.setDefaultEncoding("UTF8");
+//        try {
+//            detailsClient = cfg.getTemplate("detail.ftl");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        detailsClient = (Template) getServletContext().getAttribute("templateDetail");
     }
 }

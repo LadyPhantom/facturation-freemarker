@@ -1,13 +1,19 @@
 package fr.laerce.facturation;
 
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.io.IOException;
 import java.sql.*;
 
 public class ContextListener implements ServletContextListener {//*
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {//*
+
+        // ------- Initialisation BdD -----------------------------------------------
 
         ServletContext sc = servletContextEvent.getServletContext();//*
 
@@ -30,7 +36,7 @@ public class ContextListener implements ServletContextListener {//*
             // --- Prepared Statement -------------------------------
 
             String listeDeToutLesClients = "SELECT clt_num, clt_nom, clt_pnom, clt_loc, clt_pays FROM clients;";
-            String detailClient = "SELECT clt_num, clt_nom, clt_pnom, clt_loc, clt_pays FROM clients WHERE clt_pnom = ?;";
+            String detailClient = "SELECT clt_num, clt_nom, clt_pnom, clt_loc, clt_pays FROM clients WHERE clt_num = ?;";
 
             PreparedStatement prepState_listeDeToutLesClients = conn.prepareStatement(listeDeToutLesClients);
             PreparedStatement prepState_detailClient = conn.prepareStatement(detailClient);
@@ -44,6 +50,22 @@ public class ContextListener implements ServletContextListener {//*
             e.printStackTrace();
         }
 
+        // ------- Initialisation Templates -------------------------------------------
+
+        Configuration cfg = new Configuration(Configuration.VERSION_2_3_25);
+        cfg.setServletContextForTemplateLoading(sc ,"/WEB-INF/templates");
+        cfg.setDefaultEncoding("UTF-8");
+
+        Template detailsClient, listeClients;
+        try {
+            detailsClient = cfg.getTemplate("detail.ftl");
+            listeClients = cfg.getTemplate("clients.ftl");
+
+            sc.setAttribute("templateDetail", detailsClient);
+            sc.setAttribute("templateListe", listeClients);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

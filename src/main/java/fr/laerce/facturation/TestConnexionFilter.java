@@ -7,9 +7,6 @@ import java.io.IOException;
 public class TestConnexionFilter implements Filter {
 
     public  void init(FilterConfig filterConfig) {
-        // l'objet filterConfig encapsule les paramètres
-        // d'initialisation de ce filtre
-
     }
 
     @Override
@@ -28,8 +25,5 @@ public class TestConnexionFilter implements Filter {
     }
 
     public  void destroy() {
-        // callback de destruction de ce filtre
     }
-
-
 }
